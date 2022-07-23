@@ -1,0 +1,55 @@
+name: build-and-run-clang-tidy
+
+on: [ pull_request ]
+
+env:
+  BUILD_TYPE: Debug
+  FIXES_FILE: 'build/fixes.yaml'
+
+jobs:
+  clang-tidy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+
+    env:
+      fixes_path: 'build'
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - uses: egor-tensin/setup-gcc@v1
+      with:
+        version: 11
+
+    - uses: KyleMayes/install-llvm-action@v1.5.2
+      with:
+        version: 14
+
+    - name: Configure CMake
+      run: |
+        cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+
+    - name: Build
+      run: |
+        cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }}
+
+    - name: Analyze
+      run: |
+        run-clang-tidy -p build -export-fixes ${{ env.FIXES_FILE }}
+
+    - name: Dump fixes
+      run: |
+        cat ${{env.FIXES_FILE}}
+
+    - name: Run clang-tidy-pr-comments action
+      uses: platisd/clang-tidy-pr-comments@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        clang_tidy_fixes: ${{ env.FIXES_FILE }}
+        suggestions_per_comment: 25
+
