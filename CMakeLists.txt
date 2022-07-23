@@ -7,4 +7,5 @@ project(rolling-hash VERSION ${VERSION} LANGUAGES CXX)
 include(cmake/sources.cmake)
 include(cmake/compile_options.cmake)
 include(cmake/tests.cmake)
+include(cmake/googletest.cmake)
 

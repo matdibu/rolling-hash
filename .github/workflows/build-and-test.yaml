@@ -19,9 +19,9 @@ jobs:
       with:
         version: 11
 
-    - uses: KyleMayes/install-llvm-action@v1.5.2
+    - uses: KyleMayes/install-llvm-action@v1.5.4
       with:
-        version: 14
+        version: 14.0.0
 
     - uses: actions/checkout@v3
 
@@ -34,4 +34,4 @@ jobs:
     - name: Test
       working-directory: ${{github.workspace}}/build
       run: ctest -C ${{env.BUILD_TYPE}}
-      
+
