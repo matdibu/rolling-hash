@@ -24,7 +24,7 @@ jobs:
         version: 14
 
     - name: Install gtest
-      run: sudo apt-get install gtest
+      run: sudo apt-get install googletest
 
     - uses: actions/checkout@v3
 
