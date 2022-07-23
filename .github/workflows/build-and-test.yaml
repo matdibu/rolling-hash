@@ -24,9 +24,9 @@ jobs:
         version: 14
 
     - name: Install gtest
-      run: sudo apt-get install googletest googletest-tools libgtest-dev
-      run: export GTEST_DIR="/googletest/googletest/" GTEST_LIB_DIR="/googletest/build/lib/"
-      run: export GTEST_DIR="$GTest_DIR"
+      run: sudo apt-get install googletest googletest-tools libgtest-dev && \
+           export GTEST_DIR="/googletest/googletest/" GTEST_LIB_DIR="/googletest/build/lib/" && \
+           export GTEST_DIR="$GTest_DIR"
 
     - uses: actions/checkout@v3
 
@@ -39,4 +39,4 @@ jobs:
     - name: Test
       working-directory: ${{github.workspace}}/build
       run: ctest -C ${{env.BUILD_TYPE}}
-      
+
