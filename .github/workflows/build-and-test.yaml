@@ -24,7 +24,9 @@ jobs:
         version: 14
 
     - name: Install gtest
-      run: sudo apt-get install googletest
+      run: sudo apt-get install googletest googletest-tools libgtest-dev
+      run: export GTEST_DIR="/googletest/googletest/" GTEST_LIB_DIR="/googletest/build/lib/"
+      run: export GTEST_DIR="$GTest_DIR"
 
     - uses: actions/checkout@v3
 
