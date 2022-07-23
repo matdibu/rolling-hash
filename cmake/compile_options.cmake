@@ -4,6 +4,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD_REQUIRED True
 )
 
+set(CMAKE_CXX_STANDARD 20)
 
 add_compile_options(
     -Wall -Wextra -Werror

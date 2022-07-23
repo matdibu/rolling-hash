@@ -26,19 +26,9 @@ jobs:
       with:
         version: 11
 
-    - uses: KyleMayes/install-llvm-action@v1.5.2
+    - uses: KyleMayes/install-llvm-action@v1.5.4
       with:
-        version: 14
-
-    - name: Install gtest manually
-      run: |
-        sudo apt-get install libgtest-dev && \
-        cd /usr/src/gtest && \
-        sudo cmake CMakeLists.txt && \
-        sudo make && \
-        sudo cp lib/*.a /usr/lib && \
-        sudo ln -s /usr/lib/libgtest.a /usr/local/lib/libgtest.a && \
-        sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/libgtest_main.a
+        version: 14.0.0
 
     - name: Configure CMake
       run: |

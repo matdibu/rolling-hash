@@ -19,36 +19,14 @@ jobs:
       with:
         version: 11
 
-    - name: Cache LLVM and Clang
-      id: cache-llvm
-      uses: actions/cache@v2
-      with:
-        path: |
-          C:/Program Files/LLVM
-          ./llvm
-        key: llvm-14.0.0
-
     - uses: KyleMayes/install-llvm-action@v1.5.4
       with:
         version: 14.0.0
-        cached: ${{ steps.cache-llvm.outputs.cache-hit }}
-
-    - name: Install gtest
-      run: |
-        sudo apt-get install libgtest-dev && \
-        cd /usr/src/gtest && \
-        sudo cmake CMakeLists.txt && \
-        sudo make && \
-        sudo cp lib/*.a /usr/lib && \
-        sudo ln -s /usr/lib/libgtest.a /usr/local/lib/libgtest.a && \
-        sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/libgtest_main.a
 
     - uses: actions/checkout@v3
 
     - name: Configure CMake
-      run: |
-        GTest_DIR="/googletest/googletest/" \
-        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
