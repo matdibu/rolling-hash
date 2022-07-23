@@ -12,17 +12,16 @@ set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(googletest)
 
-add_executable(
+set (GoogleTestsList
 	dummy
-	../gtest/unittest.cpp
+	polynomial
 )
-
-target_link_libraries(
-	dummy
-	GTest::gtest_main
-)
-
-# add_test(NAME dummy_test COMMAND dummy)
 
 include(GoogleTest)
-gtest_discover_tests(dummy)
+
+foreach(test ${GoogleTestsList})
+	add_executable(${test} ../gtest/${test}.cpp)
+	target_link_libraries(${test} GTest::gtest_main)
+	gtest_discover_tests(${test})
+endforeach()
+
