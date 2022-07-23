@@ -40,8 +40,7 @@ jobs:
 
     - name: Configure CMake
       run: |
-        GTEST_DIR="/googletest/googletest/" \
-        GTEST_DIR="$GTest_DIR" \
+        GTest_DIR="/googletest/googletest/" \
         cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
