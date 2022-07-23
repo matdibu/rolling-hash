@@ -19,7 +19,7 @@ jobs:
       with:
         version: 11
 
-    - uses: KyleMayes/install-llvm-action@v1.5.2
+    - uses: KyleMayes/install-llvm-action@v1.5.4
       with:
         version: 14
 
