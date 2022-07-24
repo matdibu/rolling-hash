@@ -22,7 +22,6 @@ powerMod(uint64_t base, uint64_t exponent, const uint64_t modulo)
 Polynomial::Polynomial(poly_alpha_t alpha, poly_modulo_t modulo)
   : alpha(alpha)
   , modulo(modulo)
-  , hash(0)
 {
 }
 

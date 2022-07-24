@@ -1,4 +1,14 @@
 ---
-Checks: '*,-llvmlibc*,-modernize-use-trailing-return-type,-fuchsia-default-arguments-calls,-altera-unroll-loops,-altera-id-dependent-backward-branch,-bugprone-easily-swappable-parameters'
+Checks: '*
+	,-llvmlibc*
+	,-modernize-use-trailing-return-type
+	,-fuchsia-default-arguments-calls
+	,-altera-unroll-loops
+	,-altera-id-dependent-backward-branch
+	,-bugprone-easily-swappable-parameters
+'
+
+HeaderFilterRegex: 'rolling-hash'
+
 FormatStyle: file
 ...

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ROLLING_HASH_HPP
+#define ROLLING_HASH_HPP
 
 #include <ranges>
 
@@ -45,5 +46,7 @@ public:
 private:
   poly_alpha_t alpha;
   poly_modulo_t modulo;
-  poly_hash_t hash;
+  poly_hash_t hash {0};
 };
+
+#endif // ROLLING_HASH_HPP
