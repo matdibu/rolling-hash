@@ -1,11 +1,13 @@
 ---
 Checks: '*
-	,-llvmlibc*
-	,-modernize-use-trailing-return-type
-	,-fuchsia-default-arguments-calls
-	,-altera-unroll-loops
 	,-altera-id-dependent-backward-branch
+	,-altera-unroll-loops
 	,-bugprone-easily-swappable-parameters
+	,-fuchsia-default-arguments-calls
+	,-fuchsia-overloaded-operator
+	,-llvmlibc*
+	,-misc-non-private-member-variables-in-classes
+	,-modernize-use-trailing-return-type
 '
 
 HeaderFilterRegex: 'rolling-hash'
