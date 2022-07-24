@@ -1,8 +1,5 @@
 #include "rolling-hash.hpp"
 
-#include <cstddef>
-#include <cstdint>
-
 // https://en.wikipedia.org/wiki/Modular_exponentiation#Implementation_in_Lua
 [[nodiscard]] uint64_t
 powerMod(uint64_t base, uint64_t exponent, const uint64_t modulo)

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cstddef>
-#include <cstdint>
 #include <ranges>
 
 // https://en.wikipedia.org/wiki/Modular_exponentiation#Implementation_in_Lua
