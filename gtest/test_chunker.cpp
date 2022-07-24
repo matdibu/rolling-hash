@@ -31,7 +31,7 @@ is_config_valid(const config_t& config)
 {
   const auto result = chunker(config.input.string, config.input.bits);
 
-  const bool is_valid = std::ranges::equal(result, config.expected);
+  const bool is_valid = std::equal(result.cbegin(), result.cend(), config.expected.cbegin());
 
   if (not is_valid)
   {

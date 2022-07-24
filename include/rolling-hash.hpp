@@ -13,6 +13,10 @@ polynomial_rolling_hash(const std::ranges::range auto& input_range, uint64_t alp
 {
   uint64_t result = 0;
 
+  if (modulo < 2) {
+    return 0;
+  }
+
   size_t size = input_range.size() - 1;
   for (const auto item : input_range) {
     result += (item % modulo) * powerMod(alpha, size, modulo);
