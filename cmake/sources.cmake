@@ -1,4 +1,4 @@
-set(SOURCE_FILES src/main.cpp src/polynomial.cpp)
+set(SOURCE_FILES src/polynomial.cpp)
 set(INCLUDE_DIR include)
 
 #add_executable(${PROJECT_NAME} ${SOURCE_FILES})
