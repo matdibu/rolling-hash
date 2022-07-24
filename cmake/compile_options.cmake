@@ -1,3 +1,11 @@
+set_target_properties(${PROJECT_NAME}-client PROPERTIES
+    EXPORT_COMPILE_COMMANDS ON
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED True
+)
+
+target_link_libraries(${PROJECT_NAME}-client rolling-hash)
+
 set_target_properties(${PROJECT_NAME} PROPERTIES
     EXPORT_COMPILE_COMMANDS ON
     CXX_STANDARD 20

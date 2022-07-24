@@ -9,8 +9,12 @@
 std::ostream&
 operator<<(std::ostream& stream, const chunk_t& item)
 {
-  stream << std::boolalpha << item.start << ' ' << item.end << ' '
-         << static_cast<bool>(item.type) << std::endl;
+  stream << item.start << ' ' << item.end << ' ';
+  if (item.type == separator)
+	  std::cout << "sep" << std::endl;
+  else if (item.type == normal)
+	  std::cout << "nor" << std::endl;
+
   return stream;
 }
 
@@ -18,7 +22,7 @@ struct config_t
 {
   struct input
   {
-    const std::u8string_view string;
+    const std::string_view string;
     const uint64_t bits;
   };
 
@@ -31,15 +35,14 @@ is_config_valid(const config_t& config)
 {
   const auto result = chunker(config.input.string, config.input.bits);
 
-  const bool is_valid = std::equal(result.cbegin(), result.cend(), config.expected.cbegin());
+  const bool is_valid =
+    std::equal(result.cbegin(), result.cend(), config.expected.cbegin());
 
-  if (not is_valid)
-  {
-		for(const auto& item : result)
-		{
-			std::cout << item << ' ';
-		}
-		std::cout << std::endl;
+  if (not is_valid) {
+    for (const auto& item : result) {
+      std::cout << item << ' ';
+    }
+    std::cout << std::endl;
   }
 
   return is_valid;
@@ -47,7 +50,7 @@ is_config_valid(const config_t& config)
 
 TEST(Chunker, OneSep)
 {
-  const config_t config = { .input = { .string = u8"8", .bits = 3 },
+  const config_t config = { .input = { .string = "8", .bits = 3 },
                             .expected = { { .start = 0, .end = 0, .type = separator } } };
 
   ASSERT_TRUE(is_config_valid(config));
@@ -55,20 +58,19 @@ TEST(Chunker, OneSep)
 
 TEST(Chunker, TwoSep)
 {
-  const config_t config = { .input = { .string = u8"88", .bits = 3 },
-                            .expected = { { .start = 0, .end = 0, .type = separator },
-                                          { .start = 1, .end = 1, .type = separator } } };
+  const config_t config = { .input = { .string = "88", .bits = 3 },
+                            .expected = {
+                              { .start = 0, .end = 1, .type = separator },
+                            } };
 
   ASSERT_TRUE(is_config_valid(config));
 }
 
 TEST(Chunker, ThreeSep)
 {
-  const config_t config = { .input = { .string = u8"888", .bits = 3 },
+  const config_t config = { .input = { .string = "888", .bits = 3 },
                             .expected = {
-                              { .start = 0, .end = 0, .type = separator },
-                              { .start = 1, .end = 1, .type = separator },
-                              { .start = 2, .end = 2, .type = separator },
+                              { .start = 0, .end = 2, .type = separator },
                             } };
 
   ASSERT_TRUE(is_config_valid(config));
@@ -76,7 +78,7 @@ TEST(Chunker, ThreeSep)
 
 TEST(Chunker, OneNormal)
 {
-  const config_t config = { .input = { .string = u8"7", .bits = 3 },
+  const config_t config = { .input = { .string = "7", .bits = 3 },
                             .expected = {
                               { .start = 0, .end = 0, .type = normal },
                             } };
@@ -86,7 +88,7 @@ TEST(Chunker, OneNormal)
 
 TEST(Chunker, OneTwice)
 {
-  const config_t config = { .input = { .string = u8"77", .bits = 3 },
+  const config_t config = { .input = { .string = "77", .bits = 3 },
                             .expected = {
                               { .start = 0, .end = 1, .type = normal },
                             } };
@@ -96,7 +98,7 @@ TEST(Chunker, OneTwice)
 
 TEST(Chunker, SepItemSep)
 {
-  const config_t config = { .input = { .string = u8"878", .bits = 3 },
+  const config_t config = { .input = { .string = "878", .bits = 3 },
                             .expected = {
                               { .start = 0, .end = 0, .type = separator },
                               { .start = 1, .end = 1, .type = normal },
@@ -108,11 +110,10 @@ TEST(Chunker, SepItemSep)
 
 TEST(Chunker, TwoNTwoSepTwoN)
 {
-  const config_t config = { .input = { .string = u8"778877", .bits = 3 },
+  const config_t config = { .input = { .string = "778877", .bits = 3 },
                             .expected = {
                               { .start = 0, .end = 1, .type = normal },
-                              { .start = 2, .end = 2, .type = separator },
-                              { .start = 3, .end = 3, .type = separator },
+                              { .start = 2, .end = 3, .type = separator },
                               { .start = 4, .end = 5, .type = normal },
                             } };
 
@@ -121,11 +122,21 @@ TEST(Chunker, TwoNTwoSepTwoN)
 
 TEST(Chunker, LongSepOne)
 {
-  const config_t config = { .input = { .string = u8"122345", .bits = 2 },
+  const config_t config = { .input = { .string = "122345", .bits = 2 },
                             .expected = {
                               { .start = 0, .end = 3, .type = normal },
                               { .start = 4, .end = 4, .type = separator },
                               { .start = 5, .end = 5, .type = normal },
+                            } };
+
+  ASSERT_TRUE(is_config_valid(config));
+}
+
+TEST(Chunker, OnlyNormal)
+{
+  const config_t config = { .input = { .string = "12235", .bits = 2 },
+                            .expected = {
+                              { .start = 0, .end = 4, .type = normal },
                             } };
 
   ASSERT_TRUE(is_config_valid(config));
