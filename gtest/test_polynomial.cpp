@@ -13,7 +13,7 @@ protected:
     : poly(Polynomial::DEFAULT_ALPHA, Polynomial::DEFAULT_MODULO)
   {
   }
-  Polynomial poly;
+  Polynomial poly; // NOLINT
 };
 
 TEST(ComputeHash, Zero)
@@ -75,12 +75,13 @@ TEST_F(DefaultPolynomial, RandomChars)
 		return dist(gen32);
 	};
 
-	std::vector<unsigned char> input(10000);
+	constexpr size_t COUNT_OF_RANDOM_NUMBERS = 10000;
+	std::vector<unsigned char> input(COUNT_OF_RANDOM_NUMBERS);
 	std::generate(input.begin(), input.end(), gen);
 
 	for (const auto chr : input) {
 		poly.push(chr);
-		printf("%#x ", chr);
+		std::cout << std::hex << chr << ' ';
 	}
 
 	ASSERT_EQ(poly.get_hash(), polynomial_rolling_hash(input, poly.get_alpha(), poly.get_modulo()));
