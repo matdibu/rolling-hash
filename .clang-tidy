@@ -10,7 +10,7 @@ Checks: '*
 	,-modernize-use-trailing-return-type
 '
 
-HeaderFilterRegex: 'rolling-hash'
+HeaderFilterRegex: '.*'
 
 FormatStyle: file
 ...

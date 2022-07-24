@@ -14,11 +14,6 @@ operator<<(std::ostream& stream, const chunk_t& item)
   return stream;
 }
 
-TEST(Chunker, Empty)
-{
-  // ASSERT_TRUE(chunker().empty());
-}
-
 struct config_t
 {
   struct input
