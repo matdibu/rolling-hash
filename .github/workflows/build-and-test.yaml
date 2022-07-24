@@ -19,6 +19,9 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Update system
+      run: sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
+
     - name: Install GCC-12
       run: sudo apt-get install gcc-12 g++-12
 
