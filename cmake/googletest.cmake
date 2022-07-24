@@ -15,6 +15,7 @@ FetchContent_MakeAvailable(googletest)
 set (GoogleTestsList
 	dummy
 	test_polynomial
+	test_chunker
 )
 
 include(GoogleTest)
