@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <ranges>
 
 // https://en.wikipedia.org/wiki/Modular_exponentiation#Implementation_in_Lua
 [[nodiscard]] uint64_t
@@ -9,7 +10,19 @@ powerMod(uint64_t base, uint64_t exponent, uint64_t modulo);
 
 // https://en.wikipedia.org/wiki/Rolling_hash#Polynomial_rolling_hash
 [[nodiscard]] uint64_t
-polynomial_rolling_hash(auto input_range, uint64_t alpha, uint64_t modulo);
+polynomial_rolling_hash(const std::ranges::range auto& input_range, uint64_t alpha, uint64_t modulo)
+{
+  uint64_t result = 0;
+
+  size_t size = input_range.size() - 1;
+  for (const auto item : input_range) {
+    result += (item % modulo) * powerMod(alpha, size, modulo);
+    result %= modulo;
+    size--;
+  }
+
+  return result;
+}
 
 class Polynomial
 {

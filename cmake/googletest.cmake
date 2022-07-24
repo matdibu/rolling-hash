@@ -14,14 +14,14 @@ FetchContent_MakeAvailable(googletest)
 
 set (GoogleTestsList
 	dummy
-	polynomial
+	test_polynomial
 )
 
 include(GoogleTest)
 
 foreach(test ${GoogleTestsList})
 	add_executable(${test} ../gtest/${test}.cpp)
-	target_link_libraries(${test} GTest::gtest_main)
+	target_link_libraries(${test} GTest::gtest_main rolling-hash)
 	gtest_discover_tests(${test})
 endforeach()
 

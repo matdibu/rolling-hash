@@ -1,7 +1,10 @@
-set(SOURCE_FILES src/main.cpp)
+set(SOURCE_FILES src/main.cpp src/polynomial.cpp)
 set(INCLUDE_DIR include)
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+#add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES})
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
+set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER include/rolling-hash.h)
 
 include_directories(${INCLUDE_DIR})
 
