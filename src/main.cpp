@@ -24,7 +24,7 @@ operator<<(std::ostream& stream, const chunk_t& item)
 }
 
 int
-main(int argc, char* argv[])
+compute_diff(int argc, char* argv[]) // NOLINT
 {
   if (argc != args::MAX_ARGC) {
     std::cerr << "argc is not " << MAX_ARGC << std::endl;
@@ -63,11 +63,12 @@ main(int argc, char* argv[])
 
   std::vector<chunk_t> old_chunks;
 
-  std::string buffer(4096, 0);
+  constexpr size_t BUFFER_SIZE = 4096;
+  std::string buffer(BUFFER_SIZE, 0);
   while (old_file_stream) {
     std::cout << "reading..." << std::endl;
     std::cout << "buffer.size() is " << buffer.size() << std::endl;
-    old_file_stream.read(buffer.data(), buffer.size());
+    old_file_stream.read(buffer.data(), BUFFER_SIZE);
     const size_t bytes_read = old_file_stream.gcount();
     std::cout << "read " << bytes_read << " bytes" << std::endl;
     auto chunks = chunker(buffer, no_of_bits);
@@ -82,4 +83,18 @@ main(int argc, char* argv[])
   std::cout << "a total of " << old_chunks.size() << " chunks" << std::endl;
 
   return 0;
+}
+
+int
+main(int argc, char* argv[])
+{
+  int result = -1;
+
+  try {
+    result = compute_diff(argc, argv);
+  } catch (const std::exception& exc) {
+    std::cerr << "exc in main: " << exc.what() << std::endl;
+  }
+
+  return result;
 }

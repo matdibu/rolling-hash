@@ -10,10 +10,11 @@ std::ostream&
 operator<<(std::ostream& stream, const chunk_t& item)
 {
   stream << item.start << ' ' << item.end << ' ';
-  if (item.type == separator)
-	  std::cout << "sep" << std::endl;
-  else if (item.type == normal)
-	  std::cout << "nor" << std::endl;
+  if (item.type == separator) {
+    std::cout << "sep" << std::endl;
+  } else if (item.type == normal) {
+    std::cout << "nor" << std::endl;
+  }
 
   return stream;
 }
