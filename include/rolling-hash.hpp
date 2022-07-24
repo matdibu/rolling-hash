@@ -1,6 +1,7 @@
 #ifndef ROLLING_HASH_HPP
 #define ROLLING_HASH_HPP
 
+#include <cstdint>
 #include <ranges>
 
 // https://en.wikipedia.org/wiki/Modular_exponentiation#Implementation_in_Lua
