@@ -18,7 +18,7 @@ struct chunk_t
 
   [[nodiscard]] constexpr bool operator==(const chunk_t& other) const = default;
   [[nodiscard]] bool empty() const noexcept;
-} __attribute__((aligned(32)));
+} __attribute__((aligned(32))); // NOLINT
 
 std::vector<chunk_t>
 chunker(const std::u8string_view& input, uint64_t no_of_bits);
